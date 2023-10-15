@@ -138,29 +138,6 @@ def load_bin(file_path: Path | str) -> Any:
     return data
 
 
-def get_size(file_path : Path | str) -> str:
-    """
-    Function to get the size of a given file path
-    
-    Parameters
-    ----------
-    file_path : pathlib.Path, str
-        file loction
-    
-    Returns
-    -------
-    size_kb : str
-        size of the file in kb
-    
-    """
-    size_kb = round(
-        Path(file_path).stat().st_size / 1024
-    )
-    
-    return f"{size_kb} KB"
-
-
-
 def decode_image(imgstring: bytes, filename: str) -> None:
     """
     Function to decode from byte strings and save image data

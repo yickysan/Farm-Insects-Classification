@@ -164,6 +164,12 @@ farm_insects.dev
 
 # data set
 farm_insects
+*.zip
+farm-insects-splitted
+train
+test
+val
 
 #vscode
 .vscode
+

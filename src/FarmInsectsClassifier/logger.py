@@ -3,8 +3,9 @@ from pathlib import Path
 from datetime import datetime
 
 path = Path(__file__)
+LOG_DIR = f"{datetime.now().strftime('%m_%d_%Y')}"
 LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
-logs_path = path.cwd() /"logs" / LOG_FILE
+logs_path = path.cwd() /"logs" / LOG_DIR
 logs_path.mkdir(parents=True, exist_ok=True)
 
 LOG_FILE_PATH = logs_path/ LOG_FILE
