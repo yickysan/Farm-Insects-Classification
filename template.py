@@ -3,7 +3,7 @@ import logging
 
 logging.basicConfig(level=logging.INFO, format="[%(asctime)s]: %(message)s")
 
-project_name = "FarmInsectsClassification"
+project_name = "FarmInsectsClassifier"
 
 required_files = [
     ".github/workflows/.gitkeep",
@@ -12,17 +12,18 @@ required_files = [
     f"src/{project_name}/exception.py",
     f"src/{project_name}/components/__init__.py",
     f"src/{project_name}/tests/",
-    f"src/{project_name}/utils/__init__.py",
+    f"src/{project_name}/utils.py",
     f"src/{project_name}/config/__init__.py",
     f"src/{project_name}/config/configuration.py",
     f"src/{project_name}/pipeline/__init__.py",
-    f"src/{project_name}/entity/__init__.py"
+    f"src/{project_name}/entity/__init__.py",
     f"src/{project_name}/constants/__init__.py",
     "config/config.yaml",
     "dvc.yaml",
     "params.yaml",
     "requirements.txt",
     "setup.py",
+    "main.py",
     "notebook/trials.ipynb",
 ]
 

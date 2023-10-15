@@ -1,4 +1,5 @@
 tensorflow
+torch
 numpy
 pandas
 dvc
@@ -10,7 +11,7 @@ ensure==1.0.3
 joblib
 types-pyYAML
 scipy
-Flask
-Flask-Cors
+FastAPI
 reactpy
+split-folders
 -e .

@@ -161,3 +161,9 @@ cython_debug/
 
 # my virtual environment
 farm_insects.dev
+
+# data set
+farm_insects
+
+#vscode
+.vscode
