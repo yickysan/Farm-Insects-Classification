@@ -12,31 +12,29 @@ class DataIngestion:
         self.config = config
 
     def unzip(self) -> None:
-        try:
-            unzip_path = self.config.unzip_dir
-            unzip_path.mkdir(exist_ok=True, parents=True)
+        
+        unzip_path = self.config.unzip_dir
+        unzip_path.mkdir(exist_ok=True, parents=True)
 
-            logging.info("Extracting zip file")
+        logging.info("Extracting zip file")
 
-            with ZipFile(self.data_path, "r") as zip_ref:
-                zip_ref.extractall(unzip_path)
+        with ZipFile(self.data_path, "r") as zip_ref:
+            zip_ref.extractall(unzip_path)
 
-            logging.info("Zipfile extraction completed")
+        logging.info("Zipfile extraction completed")
 
-        except Exception as e:
-            raise DataIngestionError(e)
+        
 
 
     def split_data(self) ->  None:
-        try:
-            path = list(self.config.unzip_dir.resolve().iterdir())[0]
-            output = self.config.unzip_dir / "farm-insects-splitted"
+        
+        path = list(self.config.unzip_dir.resolve().iterdir())[0]
+        output = self.config.unzip_dir / "farm-insects-splitted"
 
-            logging.info("Splitting folder into train, test and validation set")
+        logging.info("Splitting folder into train, test and validation set")
 
-            splitfolders.ratio(path, seed=1, output=str(output), ratio=(0.6, 0.2, 0.2))
+        splitfolders.ratio(path, seed=1, output=str(output), ratio=(0.6, 0.2, 0.2))
 
-            logging.info("Train, test and validation data successfully created")
+        logging.info("Train, test and validation data successfully created")
 
-        except Exception as e:
-            raise DataIngestionError(e)
+        

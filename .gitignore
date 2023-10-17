@@ -170,6 +170,9 @@ train
 test
 val
 
+#models
+artifacts/*
+
 #vscode
 .vscode
 

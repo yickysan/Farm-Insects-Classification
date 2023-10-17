@@ -1,11 +1,20 @@
+from __future__ import annotations
+
 from FarmInsectsClassifier.constants import CONFIG_FILE_PATH, PARAM_FILE_PATH
 from FarmInsectsClassifier.utils import read_yaml, create_directories
-from FarmInsectsClassifier.entity.config_entity import DataIngestionConfig
+from FarmInsectsClassifier.entity.config_entity import DataIngestionConfig, BaseModelConfig
 from FarmInsectsClassifier.logger import logging
 
+from typing import Protocol, ClassVar
+from abc import ABC,  abstractmethod
 from pathlib import Path
 
-class ConfigurationManager:
+
+class Config(Protocol):
+    __dataclass_fields__: ClassVar[dict]
+
+
+class ConfigurationManager(ABC):
     def __init__(self,
                  config_file_path = CONFIG_FILE_PATH,
                  param_file_path = PARAM_FILE_PATH):
@@ -16,11 +25,18 @@ class ConfigurationManager:
 
         create_directories([self.config.artifacts_root])
 
-    def get_data_ingestion_config(self) -> DataIngestionConfig:
+    @abstractmethod
+    def get_config(self: ConfigurationManager) -> Config:
+        pass
+
+
+class DataIngestionConfigManager(ConfigurationManager):
+
+    def get_config(self) -> DataIngestionConfig:
         config = self.config.data_ingestion
 
 
-        logging.info("creating artifacts directory")
+        logging.info("creating artifacts/data_ingestion directory")
         create_directories([config.root_dir])
 
         data_ingestion_config = DataIngestionConfig(
@@ -30,3 +46,25 @@ class ConfigurationManager:
         )
 
         return data_ingestion_config
+
+
+class BaseModelConfigManager(ConfigurationManager):
+
+    def get_config(self: ConfigurationManager) -> BaseModelConfig:
+        
+        config = self.config.base_model_config
+
+        base_model_config = BaseModelConfig(
+            root_dir = Path(config.root_dir),
+            base_model_path = Path(config.base_model_path),
+            updated_base_model_path = Path(config.updated_base_model_path),
+            params_classes = self.params.CLASSES,
+            params_image_size = self.params.IMAGE_SIZE,
+            params_learning_rate = self.params.LEARNING_RATE,
+            params_include_top = self.params.INCLUDE_TOP,
+            params_weights= self.params.WEIGHTS
+                                           
+            )
+        
+        return base_model_config
+            

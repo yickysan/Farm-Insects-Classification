@@ -1,17 +1,35 @@
 from FarmInsectsClassifier.pipeline.pipeline_01_data_ingestion import DataIngestionPipeline
+from FarmInsectsClassifier.pipeline.pipeline_02_base_model_preparation import BaseModelPrepPipeline
 from FarmInsectsClassifier.logger import logging
 
 from pathlib import Path
+from typing import Protocol
 
-DATA_PATH = Path("archive.zip").resolve()
+class Pipeline(Protocol):
+
+    def initiate_pipeline(self, **kwargs) -> None:
+        ...
+
+
+def main(pipe: Pipeline, stage_name: str, **kwargs) -> None:
+
+    logging.info(f">>>> Pipeline {stage_name} Initiated <<<<")
+
+    pipe.initiate_pipeline(**kwargs)
+
+    logging.info(f">>>> Pipeline {stage_name} Completed <<<<")
+
+
 
 
 if __name__ == "__main__":
 
-    logging.info(f">>>> Pipeline Data Ingestion Initiated <<<<")
-    ingestion_pipeline = DataIngestionPipeline()
-    ingestion_pipeline.initiate_pipeline(DATA_PATH)
+    base_model_prep_pipeline = BaseModelPrepPipeline()
+    main(pipe=base_model_prep_pipeline, stage_name="Base Model Preparation")
+    # DATA_PATH = Path("archive.zip").resolve()
+    # data_ingestion_pipeline = DataIngestionPipeline()
 
-    logging.info(f">>>> Pipeline Data Ingestion Completed <<<<")
+    # main(pipe=data_ingestion_pipeline, stage_name="Data Ingestion", data_path = DATA_PATH)
+    
     
                         
