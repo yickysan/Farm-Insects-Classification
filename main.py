@@ -1,5 +1,6 @@
 from FarmInsectsClassifier.pipeline.pipeline_01_data_ingestion import DataIngestionPipeline
 from FarmInsectsClassifier.pipeline.pipeline_02_base_model_preparation import BaseModelPrepPipeline
+from FarmInsectsClassifier.pipeline.pipeline_03_prepare_callbacks import PrepCallBacksPipeline
 from FarmInsectsClassifier.logger import logging
 
 from pathlib import Path
@@ -25,7 +26,9 @@ def main(pipe: Pipeline, stage_name: str, **kwargs) -> None:
 if __name__ == "__main__":
 
     base_model_prep_pipeline = BaseModelPrepPipeline()
-    main(pipe=base_model_prep_pipeline, stage_name="Base Model Preparation")
+    callbacks_pipeline = PrepCallBacksPipeline()
+    
+    main(pipe=callbacks_pipeline, stage_name="Callbacks Preparation")
     # DATA_PATH = Path("archive.zip").resolve()
     # data_ingestion_pipeline = DataIngestionPipeline()
 

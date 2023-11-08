@@ -7,3 +7,7 @@ class DataIngestionError(Exception):
 
 class BaseModelPrepError(Exception):
     pass
+
+
+class CallBackError(Exception):
+    pass

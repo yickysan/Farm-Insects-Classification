@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from FarmInsectsClassifier.constants import CONFIG_FILE_PATH, PARAM_FILE_PATH
 from FarmInsectsClassifier.utils import read_yaml, create_directories
-from FarmInsectsClassifier.entity.config_entity import DataIngestionConfig, BaseModelConfig
+from FarmInsectsClassifier.entity.config_entity import DataIngestionConfig, BaseModelConfig, CallBackConfig
 from FarmInsectsClassifier.logger import logging
 
 from typing import Protocol, ClassVar
@@ -54,6 +54,9 @@ class BaseModelConfigManager(ConfigurationManager):
         
         config = self.config.base_model_config
 
+        logging.info("creating artifacts/models")
+        create_directories([config.root_dir])
+
         base_model_config = BaseModelConfig(
             root_dir = Path(config.root_dir),
             base_model_path = Path(config.base_model_path),
@@ -68,3 +71,23 @@ class BaseModelConfigManager(ConfigurationManager):
         
         return base_model_config
             
+
+class CallBackConfigManager(ConfigurationManager):
+    
+    def get_config(self: ConfigurationManager) -> CallBackConfig:
+        config = self.config.callback_config
+
+
+        logging.info("creating artifacts/callbacks/tensorboard_long and artifacts/callbacks/checkpoint")
+        create_directories([
+            Path(config.tensorboard_root_log_dir),
+            Path(config.checkpoint_model_path).parent]
+            )
+
+        callback_config = CallBackConfig(
+            root_dir = Path(config.root_dir),
+            tensorboard_root_log_dir = Path(config.tensorboard_root_log_dir),
+            checkpoint_model_path = Path(config.checkpoint_model_path)
+        )
+
+        return callback_config
