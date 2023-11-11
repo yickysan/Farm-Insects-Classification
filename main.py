@@ -26,12 +26,13 @@ def main(pipe: Pipeline, stage_name: str, **kwargs) -> None:
 
 if __name__ == "__main__":
 
-    base_model_prep_pipeline = BaseModelPrepPipeline()
+    # base_model_prep_pipeline = BaseModelPrepPipeline()
+    # base_model_prep_pipeline.initiate_pipeline()
     callbacks_pipeline = PrepCallBacksPipeline()
     call_backs = callbacks_pipeline.initiate_pipeline()
     model_training_pipeline = ModelTrainingPipeline()
     
-    main(pipe=model_training_pipeline, stage_name="Callbacks Preparation", callback_list = call_backs)
+    main(pipe=model_training_pipeline, stage_name="Model Training", callback_list = call_backs)
     # DATA_PATH = Path("archive.zip").resolve()
     # data_ingestion_pipeline = DataIngestionPipeline()
 
