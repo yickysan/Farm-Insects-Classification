@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from FarmInsectsClassifier.constants import CONFIG_FILE_PATH, PARAM_FILE_PATH
 from FarmInsectsClassifier.utils import read_yaml, create_directories
-from FarmInsectsClassifier.entity.config_entity import DataIngestionConfig, BaseModelConfig, CallBackConfig
+from FarmInsectsClassifier.entity.config_entity import DataIngestionConfig, BaseModelConfig, CallBackConfig, ModelTrainerConfig
 from FarmInsectsClassifier.logger import logging
 
 from typing import Protocol, ClassVar
@@ -91,3 +91,26 @@ class CallBackConfigManager(ConfigurationManager):
         )
 
         return callback_config
+
+
+class ModelTrainerConfigManager(ConfigurationManager):
+
+    def get_config(self: ConfigurationManager) -> ModelTrainerConfig:
+        config = self.config.model_trainer_config
+
+        logging.info("Creating Model Trainer Directory")
+        create_directories([Path(config.root_dir)])
+
+        model_trainer_config = ModelTrainerConfig(
+            root_dir = Path(config.root_dir),
+            model_path = Path(config.model_path),
+            updated_base_model_path = Path(self.config.base_model_config.updated_model_path),
+            train_data = Path(self.config.data_ingestion.unzip_dir) / "farm-insects-splitted/train",
+            validation_data = Path(self.config.data_ingestion.unzip_dir) / "farm-insects-splitted/validation",
+            params_epochs = self.params.EPOCHS,
+            params_batch_size = self.params.BATCH_SIZE,
+            params_is_augmentation = self.params.AUGMENTATION,
+            params_image_size = self.params.IMAGE_SIZE
+        )
+
+        return model_trainer_config

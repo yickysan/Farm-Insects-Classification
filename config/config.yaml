@@ -14,3 +14,7 @@ callback_config:
   root_dir: artifacts/callbacks
   tensorboard_root_log_dir: artifacts/callbacks/tensorboard_log
   checkpoint_model_path: artifacts/callbacks/checkpoint/model.keras
+
+model_trainer_config:
+  root_dir: artifacts/model_trainer
+  model_path: artifacts/model_trainer/model.keras

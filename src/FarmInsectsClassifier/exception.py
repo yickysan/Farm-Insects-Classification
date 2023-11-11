@@ -11,3 +11,6 @@ class BaseModelPrepError(Exception):
 
 class CallBackError(Exception):
     pass
+
+class ModelTrainerError(Exception):
+    pass

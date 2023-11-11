@@ -63,7 +63,7 @@ class PrepareBaseModel:
 
         full_model.compile(
             optimizer = keras.optimizers.SGD(learning_rate=learning_rate),
-            loss = keras.losses.CategoricalCrossentropy(),
+            loss = keras.losses.SparseCategoricalCrossentropy(),
             metrics =  ["accuracy"]
         )
 

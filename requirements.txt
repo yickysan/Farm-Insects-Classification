@@ -2,6 +2,7 @@ tensorflow
 torch
 numpy
 pandas
+matplotlib
 dvc
 notebook
 python-box==6.0.2
