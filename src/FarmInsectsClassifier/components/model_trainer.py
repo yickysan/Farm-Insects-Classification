@@ -12,26 +12,29 @@ class TrainModel:
     def __init__(self, config: ModelTrainerConfig):
         self.config = config
 
-    def get_base_model(self) -> None:
+
+    def _get_base_model(self) -> None:
         self.model = keras.models.load_model(self.config.updated_base_model_path)
 
 
     def _preprocess_data(self) -> None:
+
+
         train_data = keras.utils.image_dataset_from_directory(
             self.config.train_data,
             batch_size = self.config.params_batch_size,
-            image_size = self.config.params_image_size,
-            shuffle = False)
+            image_size = self.config.params_image_size[:-1],
+            shuffle = True)
         
         self.train_samples = len(train_data.file_paths) #type: ignore
         
-        # scale data so min value is 0 and maximum value is 1
+        # scale data so min value is 0 and maximum value is 1.
         self.train_data = train_data.map(lambda x, y: (x/255, y)) # type: ignore
         
         validation_data = keras.utils.image_dataset_from_directory(
             self.config.validation_data,
             batch_size = self.config.params_batch_size,
-            image_size = self.config.params_image_size,
+            image_size = self.config.params_image_size[:-1],
             shuffle = False)
         
         self.validation_samples = len(validation_data.file_paths) #type: ignore
@@ -46,8 +49,8 @@ class TrainModel:
                 keras.layers.RandomZoom(height_factor=(0.2, 0.3), width_factor=(0.2, 0.3))
             ])
 
-            self.train_data = self.train_data.map(lambda x, y: (augmentation(x, traing=True), y))
-            self.validation = self.validation.map(lambda x, y: (augmentation(x, traing=True), y))
+            self.train_data = self.train_data.map(lambda x, y: (augmentation(x, training=True), y))
+            self.validation = self.validation.map(lambda x, y: (augmentation(x, training=True), y))
         
         
     
@@ -62,6 +65,9 @@ class TrainModel:
         logging.info("Data preprocessing started")
         self._preprocess_data()
 
+        logging.info("Loading Model")
+        self._get_base_model()
+
         self.steps_per_epochs = (self.train_samples // self.config.params_batch_size) + 1
         self.validation_steps = (self.validation_samples // self.config.params_batch_size) + 1
 
@@ -69,7 +75,7 @@ class TrainModel:
         self.model.fit( #type: ignore
             self.train_data,
             epochs = self.config.params_epochs,
-            steps_per_epochs = self.steps_per_epochs,
+            steps_per_epoch = self.steps_per_epochs,
             validation_steps = self.validation_steps,
             validation_data = self.validation,
             callbacks = callback_list

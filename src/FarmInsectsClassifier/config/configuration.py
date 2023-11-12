@@ -106,7 +106,7 @@ class ModelTrainerConfigManager(ConfigurationManager):
             model_path = Path(config.model_path),
             updated_base_model_path = Path(self.config.base_model_config.updated_base_model_path),
             train_data = Path(self.config.data_ingestion.unzip_dir) / "farm-insects-splitted/train",
-            validation_data = Path(self.config.data_ingestion.unzip_dir) / "farm-insects-splitted/validation",
+            validation_data = Path(self.config.data_ingestion.unzip_dir) / "farm-insects-splitted/val",
             params_epochs = self.params.EPOCHS,
             params_batch_size = self.params.BATCH_SIZE,
             params_is_augmentation = self.params.AUGMENTATION,
