@@ -10,6 +10,14 @@ class ModelTrainingPipeline:
         self.stage_name = "ModelTraining"
     
     def initiate_pipeline(self, **kwargs) -> None:
+        """
+        Parameters
+        ----------
+        kwargs[callback_list] : List
+            List of keras.callbacks.ModelCheckpoint, keras.callbacks.TensorBoard, 
+            keras.callbacks.EearlyStopping
+            
+        """
         try:
             callback_list = kwargs["callback_list"]
 

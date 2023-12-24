@@ -18,13 +18,20 @@ required_files = [
     f"src/{project_name}/pipeline/__init__.py",
     f"src/{project_name}/entity/__init__.py",
     f"src/{project_name}/constants/__init__.py",
+    f"src/{project_name}/torch/utils.py",
+    f"src/{project_name}/torch/components/__init__.py",
+    f"src/{project_name}/torch/tests/",
+    f"src/{project_name}/torch/config/__init__.py",
+    f"src/{project_name}/torch/config/configuration.py",
+    f"src/{project_name}/torch/pipeline/__init__.py",
+    f"src/{project_name}/torch/entity/__init__.py",
     "config/config.yaml",
     "dvc.yaml",
     "params.yaml",
     "requirements.txt",
     "setup.py",
     "main.py",
-    "notebook/trials.ipynb",
+    "notebook"
 ]
 
 for file_path in required_files:

@@ -11,7 +11,9 @@ class PrepCallBacksPipeline:
         self.stage_name = "Callbacks Preparation"
     
     def initiate_pipeline(self, **kwargs) -> list[
-        keras.callbacks.TensorBoard | keras.callbacks.ModelCheckpoint
+        keras.callbacks.TensorBoard | 
+        keras.callbacks.ModelCheckpoint | 
+        keras.callbacks.EarlyStopping
         ]:
         
         try:

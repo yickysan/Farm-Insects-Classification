@@ -11,7 +11,7 @@ class PrepareBaseModel:
     def get_base_model(self) -> None:
 
         logging.info("Inititalising base model")
-        self.model = keras.applications.vgg16.VGG16(
+        self.model = keras.applications.ResNet50(
             input_shape = self.config.params_image_size,
             weights = self.config.params_weights,
             include_top = self.config.params_include_top
@@ -62,7 +62,7 @@ class PrepareBaseModel:
         )
 
         full_model.compile(
-            optimizer = keras.optimizers.SGD(learning_rate=learning_rate),
+            optimizer = keras.optimizers.Adam(learning_rate=learning_rate),
             loss = keras.losses.SparseCategoricalCrossentropy(),
             metrics =  ["accuracy"]
         )

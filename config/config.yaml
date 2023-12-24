@@ -9,12 +9,24 @@ base_model_config:
   root_dir: artifacts/models
   base_model_path: artifacts/models/base_model.h5
   updated_base_model_path: artifacts/models/updated_base_model.h5
+  torch:
+    root_dir: artifacts/torch/models
+    base_model_path: artifacts/torch/models/base_model.pt
+    updated_base_model_path: artifacts/torch/models/updated_base_model.pt
 
 callback_config:
   root_dir: artifacts/callbacks
   tensorboard_root_log_dir: artifacts/callbacks/tensorboard_log
   checkpoint_model_path: artifacts/callbacks/checkpoint/model.h5
+  torch:
+    root_dir: artifacts/torch/callbacks
+    tensorboard_root_log_dir: artifacts/torch/callbacks/tensorboard_log
+    checkpoint_model_path: artifacts/torch/callbacks/checkpoint/model.pt
+
 
 model_trainer_config:
   root_dir: artifacts/model_trainer
   model_path: artifacts/model_trainer/model.h5
+  torch:
+    root_dir: artifacts/torch/model_trainer
+    model_path: artifacts/torch/model_trainer/model.pt

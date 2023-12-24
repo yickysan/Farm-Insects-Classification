@@ -1,14 +1,16 @@
 tensorflow
 torch
+torchvision
 numpy
 pandas
+scikit-learn
 matplotlib
+seaborn
 dvc
 notebook
 python-box==6.0.2
 pyYAML
 tqdm
-ensure==1.0.3
 joblib
 types-pyYAML
 scipy

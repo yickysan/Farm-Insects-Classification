@@ -25,15 +25,25 @@ class PrepareCallBacks:
             filepath = str(self.config.checkpoint_model_path),
             save_best_only = True
         )
+
+    @property
+    def _early_stopping(self) -> tf.keras.callbacks.EarlyStopping:
+        early_stopping = tf.keras.callbacks.EarlyStopping(
+                            monitor = "val_loss",
+                            patience = 10,
+                            min_delta = 0.001, #type: ignore
+                            restore_best_weights = True)
+
+        return early_stopping
     
 
-    def get_tb_ckpt_callbacks(self) -> list[
-        tf.keras.callbacks.TensorBoard |
-        tf.keras.callbacks.ModelCheckpoint
-        ]:
+    def get_tb_ckpt_callbacks(self) -> list[tf.keras.callbacks.TensorBoard |
+                                            tf.keras.callbacks.ModelCheckpoint |
+                                            tf.keras.callbacks.EarlyStopping]:
 
         return [
             self._create_tb_callbacks,
-            self._create_ckpt_callbacks
+            self._create_ckpt_callbacks,
+            self._early_stopping
             ]
     

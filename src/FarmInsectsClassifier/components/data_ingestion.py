@@ -33,7 +33,7 @@ class DataIngestion:
 
         logging.info("Splitting folder into train, test and validation set")
 
-        splitfolders.ratio(path, seed=1, output=str(output), ratio=(0.6, 0.2, 0.2))
+        splitfolders.ratio(path, seed=1, output=str(output), ratio=(0.8, 0.2, 0.2))
 
         logging.info("Train, test and validation data successfully created")
 
